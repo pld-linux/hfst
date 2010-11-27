@@ -1,0 +1,42 @@
+--- hfst-2.4.1/hfst2/Makefile.am.orig	2010-03-02 01:55:12.000000000 +0100
++++ hfst-2.4.1/hfst2/Makefile.am	2010-11-27 12:53:33.683094909 +0100
+@@ -95,31 +95,19 @@
+ 
+ # LEX
+ 
+-regexp/xre_lex.cc: regexp/xre_lex.ll
+-	$(LEX) -v --prefix=xre --outfile=$@ --header-file=regexp/xre_lex.h $<
++regexp/xre_lex.cc regexp/xre_lex.h: regexp/xre_lex.ll
++	$(LEX) -v --prefix=xre --outfile=regexp/xre_lex.cc --header-file=regexp/xre_lex.h $<
+ 
+-regexp/xrew_lex.cc: regexp/xrew_lex.ll
+-	$(LEX) -v --prefix=xrew --outfile=$@ --header-file=regexp/xrew_lex.h $<
++regexp/xrew_lex.cc regexp/xrew_lex.h: regexp/xrew_lex.ll
++	$(LEX) -v --prefix=xrew --outfile=regexp/xrew_lex.cc --header-file=regexp/xrew_lex.h $<
+ 
+-regexp/xre_lex.h: regexp/xre_lex.ll
+-	$(LEX) -v --prefix=xre --outfile=regexp/xre_lex.cc --header-file=$@ $<
+-
+-regexp/xrew_lex.h: regexp/xrew_lex.ll
+-	$(LEX) -v --prefix=xrew --outfile=regexp/xrew_lex.cc --header-file=$@ $<
+-
+ # YACC
+ 
+-regexp/xre_parse.hh: regexp/xre_parse.yy
+-	$(YACC) -d -v --name-prefix=xre --output=$@ $<
+-
+-regexp/xrew_parse.hh: regexp/xrew_parse.yy
+-	$(YACC) -d -v --name-prefix=xrew --output=$@ $<
+-
+-regexp/xre_parse.cc: regexp/xre_parse.yy
+-	$(YACC) -d -v --name-prefix=xre --output=$@ $<
++regexp/xre_parse.cc regexp/xre_parse.hh: regexp/xre_parse.yy
++	$(YACC) -d -v --name-prefix=xre --output=xre_parse.cc $<
+ 
+-regexp/xrew_parse.cc: regexp/xrew_parse.yy
+-	$(YACC) -d -v --name-prefix=xrew --output=$@ $<
++regexp/xrew_parse.cc regexp/xrew_parse.hh: regexp/xrew_parse.yy
++	$(YACC) -d -v --name-prefix=xrew --output=xrew_parse.cc $<
+ 
+ # libtool takes over
+ 
