@@ -5,12 +5,12 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.0.2
+Version:	3.0.3
 Release:	1
 License:	GPL v3
 Group:		Applications/Text
 Source0:	http://downloads.sourceforge.net/hfst/%{name}-%{version}.tar.gz
-# Source0-md5:	ae502571684f706b372d669c36652892
+# Source0-md5:	0787391ad833ad08ba80a6a277239fa8
 Patch0:		%{name}-pc.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 BuildRequires:	SFST-devel
@@ -76,7 +76,8 @@ Statyczna biblioteka HFST.
 %configure \
 	FOMACLI=/usr/bin/foma \
 	--disable-silent-rules \
-	--enable-static
+	--enable-static \
+	%{!?with_foma:--without-foma}
 
 %{__make}
 
@@ -85,10 +86,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-# missing in make install
-[ ! -f $RPM_BUILD_ROOT%{_pkgconfigdir}/hfst.pc ] || exit 1
-install -D libhfst/hfst.pc $RPM_BUILD_ROOT%{_pkgconfigdir}/hfst.pc
 
 # obsoleted by pkgconfig
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libhfst.la
@@ -105,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hfst-*
 %attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.1
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.4
 %{_mandir}/man1/hfst-*.1*
 
 %files devel
