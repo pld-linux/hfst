@@ -5,12 +5,12 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.0.3
-Release:	2
+Version:	3.1.0
+Release:	1
 License:	GPL v3
 Group:		Applications/Text
 Source0:	http://downloads.sourceforge.net/hfst/%{name}-%{version}.tar.gz
-# Source0-md5:	0787391ad833ad08ba80a6a277239fa8
+# Source0-md5:	384a0727bfabb256a3a26077fc9a68d9
 Patch0:		%{name}-pc.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 BuildRequires:	SFST-devel
@@ -105,7 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hfst-*
 %attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.4
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.5
 %dir %{_datadir}/hfst
 %{_mandir}/man1/hfst-*.1*
 
