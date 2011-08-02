@@ -5,23 +5,28 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.1.1
+Version:	3.2.0
 Release:	1
 License:	GPL v3
 Group:		Applications/Text
 Source0:	http://downloads.sourceforge.net/hfst/%{name}-%{version}.tar.gz
-# Source0-md5:	31fad25e368071b25006d19ed6cf438e
+# Source0-md5:	0ad2670f4c180d7ab2398cebf2719363
 Patch0:		%{name}-pc.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 BuildRequires:	SFST-devel
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	bison
-%{?with_foma:BuildRequires:	foma-devel}
 BuildRequires:	flex >= 2.5.35
+BuildRequires:	glib2-devel >= 1:2.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2.0
 BuildRequires:	openfst-devel
+%if %{with foma}
+BuildRequires:	foma-devel
+BuildRequires:	zlib-devel
+%endif
+Requires:	glib2 >= 1:2.12
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,6 +47,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SFST-devel
 %{?with_foma:Requires:	foma-devel}
+Requires:	glib2-devel >= 1:2.12
 Requires:	libstdc++-devel
 Requires:	openfst-devel
 
@@ -77,6 +83,7 @@ Statyczna biblioteka HFST.
 	FOMACLI=/usr/bin/foma \
 	--disable-silent-rules \
 	--enable-static \
+	--with-unicode-handler=glib \
 	%{!?with_foma:--without-foma}
 
 %{__make}
@@ -105,7 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hfst-*
 %attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.6
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.7
 %dir %{_datadir}/hfst
 %{_mandir}/man1/hfst-*.1*
 
@@ -113,6 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libhfst.so
 %{_includedir}/hfst
+%{_aclocaldir}/hfst.m4
 %{_pkgconfigdir}/hfst.pc
 
 %files static
