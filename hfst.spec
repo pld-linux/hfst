@@ -1,32 +1,40 @@
 #
 # Conditional build:
-%bcond_with	foma	# use foma by linking with libfoma (GPL v2-strict, which is not compliant)
+%bcond_with	foma		# use foma by linking with libfoma (GPL v2-strict, which is not compliant)
+%bcond_without	readline	# readline in interactive programs
 #
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.2.0
+Version:	3.4.5
 Release:	1
 License:	GPL v3
 Group:		Applications/Text
 Source0:	http://downloads.sourceforge.net/hfst/%{name}-%{version}.tar.gz
-# Source0-md5:	0ad2670f4c180d7ab2398cebf2719363
+# Source0-md5:	4632cef7aa20564dba25eec3747f069a
 Patch0:		%{name}-pc.patch
+Patch1:		%{name}-link.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 BuildRequires:	SFST-devel
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	bison
 BuildRequires:	flex >= 2.5.35
-BuildRequires:	glib2-devel >= 1:2.12
+BuildRequires:	glib2-devel >= 1:2.16
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool >= 2:2.0
+BuildRequires:	libtool >= 2:2.2
+# would be used only with --enable-expand-equivalences, but header checks are broken (no -I...)
+#BuildRequires:	libxml2-devel >= 2
+BuildRequires:	ncurses-devel
 BuildRequires:	openfst-devel
+BuildRequires:	pkgconfig >= 1:0.14
+BuildRequires:	python >= 2.4
+%{?with_readline:BuildRequires:	readline-devel}
 %if %{with foma}
 BuildRequires:	foma-devel
 BuildRequires:	zlib-devel
 %endif
-Requires:	glib2 >= 1:2.12
+Requires:	glib2 >= 1:2.16
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,7 +55,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SFST-devel
 %{?with_foma:Requires:	foma-devel}
-Requires:	glib2-devel >= 1:2.12
+Requires:	glib2-devel >= 1:2.16
 Requires:	libstdc++-devel
 Requires:	openfst-devel
 
@@ -72,6 +80,7 @@ Statyczna biblioteka HFST.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -83,6 +92,7 @@ Statyczna biblioteka HFST.
 	FOMACLI=/usr/bin/foma \
 	--disable-silent-rules \
 	--enable-static \
+	%{?with_readline:--with-readline} \
 	--with-unicode-handler=glib \
 	%{!?with_foma:--without-foma}
 
@@ -112,7 +122,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hfst-*
 %attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.7
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.28
 %dir %{_datadir}/hfst
 %{_mandir}/man1/hfst-*.1*
 
