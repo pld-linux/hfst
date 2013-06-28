@@ -1,6 +1,5 @@
 #
 # Conditional build:
-%bcond_with	foma		# use foma by linking with libfoma (GPL v2-strict, which is not compliant)
 %bcond_without	readline	# readline in interactive programs
 #
 Summary:	Helsinki Finite-State Transducer (library and application suite)
@@ -30,10 +29,7 @@ BuildRequires:	openfst-devel
 BuildRequires:	pkgconfig >= 1:0.14
 BuildRequires:	python >= 2.4
 %{?with_readline:BuildRequires:	readline-devel}
-%if %{with foma}
-BuildRequires:	foma-devel
 BuildRequires:	zlib-devel
-%endif
 Requires:	glib2 >= 1:2.16
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,7 +50,6 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki HFST
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SFST-devel
-%{?with_foma:Requires:	foma-devel}
 Requires:	glib2-devel >= 1:2.16
 Requires:	libstdc++-devel
 Requires:	openfst-devel
@@ -89,13 +84,11 @@ Statyczna biblioteka HFST.
 %{__autoheader}
 %{__automake}
 %configure \
-	FOMACLI=/usr/bin/foma \
 	--enable-lexc \
 	--disable-silent-rules \
 	--enable-static \
 	%{?with_readline:--with-readline} \
-	--with-unicode-handler=glib \
-	%{!?with_foma:--without-foma}
+	--with-unicode-handler=glib
 
 %{__make}
 
@@ -121,6 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README THANKS
 %attr(755,root,root) %{_bindir}/hfst-*
+%attr(755,root,root) %{_bindir}/hfst_foma
 %attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libhfst.so.28
