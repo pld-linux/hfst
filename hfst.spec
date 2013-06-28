@@ -90,6 +90,7 @@ Statyczna biblioteka HFST.
 %{__automake}
 %configure \
 	FOMACLI=/usr/bin/foma \
+	--enable-lexc \
 	--disable-silent-rules \
 	--enable-static \
 	%{?with_readline:--with-readline} \
