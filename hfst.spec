@@ -90,7 +90,8 @@ Statyczna biblioteka HFST.
 	%{?with_readline:--with-readline} \
 	--with-unicode-handler=glib
 
-%{__make}
+# parallel build is broken with foma backend
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
