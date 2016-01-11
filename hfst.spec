@@ -7,7 +7,7 @@ Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
 Version:	3.9.0
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		Applications/Text
 Source0:	http://downloads.sourceforge.net/hfst/%{name}-%{version}.tar.gz
@@ -118,6 +118,7 @@ Wiązanie Pythona 3 do biblioteki HFST.
 	--enable-foma-wrapper \
 	--enable-lexc \
 	--enable-lexc-wrapper \
+	--enable-proc \
 	--disable-silent-rules \
 	--enable-tagger \
 	--enable-xfst \
