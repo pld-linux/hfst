@@ -6,12 +6,13 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.9.1
+Version:	3.11.0
 Release:	1
 License:	LGPL v3 (library), GPL v3 (tools)
 Group:		Applications/Text
-Source0:	http://downloads.sourceforge.net/hfst/%{name}-%{version}.tar.gz
-# Source0-md5:	3d7a54b6ce67d180545d599b7d9fa7c9
+#Source0Download: https://github.com/hfst/hfst/releases
+Source0:	https://github.com/hfst/hfst/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	6cbdddcb9ef28aa5681081a8a1dc6b54
 Patch0:		%{name}-pc.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 # bundled library is used
@@ -184,7 +185,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hfst_foma
 %attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.43
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.46
 %dir %{_datadir}/hfst
 %{_mandir}/man1/hfst-*.1*
 %{_mandir}/man1/htwolcpre?.1*
@@ -210,6 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-hfst
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_libhfst.so
+%{py_sitedir}/hfst
 %{py_sitedir}/libhfst.py[co]
 %{py_sitedir}/libhfst_swig-%{version}_beta-py*.egg-info
 
@@ -217,6 +219,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-hfst
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py3_sitedir}/_libhfst.cpython-*.so
+%{py3_sitedir}/hfst
 %{py3_sitedir}/libhfst.py
 %{py3_sitedir}/__pycache__/libhfst.cpython-*.py[co]
 %{py3_sitedir}/libhfst_swig-%{version}_beta-py*.egg-info
