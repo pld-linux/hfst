@@ -6,12 +6,12 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.9.0
-Release:	2
-License:	GPL v3
+Version:	3.9.1
+Release:	1
+License:	LGPL v3 (library), GPL v3 (tools)
 Group:		Applications/Text
 Source0:	http://downloads.sourceforge.net/hfst/%{name}-%{version}.tar.gz
-# Source0-md5:	b1fb133e5ef27bb059bb15cdd558f17d
+# Source0-md5:	3d7a54b6ce67d180545d599b7d9fa7c9
 Patch0:		%{name}-pc.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 # bundled library is used
@@ -53,6 +53,7 @@ stanów z wagami lub bez.
 %package tagger
 Summary:	HFST Tagger scripts
 Summary(pl.UTF-8):	Skrypty HFST Tagger
+License:	GPL v3
 Group:		Applications/Text
 Requires:	%{name} = %{version}-%{release}
 
@@ -65,6 +66,7 @@ Skrypty HFST Tagger napisane w Pythonie.
 %package devel
 Summary:	Header files for HFST library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki HFST
+License:	LGPL v3
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 #Requires:	SFST-devel
@@ -82,6 +84,7 @@ Pliki nagłówkowe biblioteki HFST.
 %package static
 Summary:	Static HFST library
 Summary(pl.UTF-8):	Statyczna biblioteka HFST
+License:	LGPL v3
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -91,9 +94,23 @@ Static HFST library.
 %description static -l pl.UTF-8
 Statyczna biblioteka HFST.
 
+%package -n python-hfst
+Summary:	Python 2 binding for HFST library
+Summary(pl.UTF-8):	Wiązanie Pythona 2 do biblioteki HFST
+License:	LGPL v3
+Group:		Libraries/Python
+Requires:	%{name} = %{version}-%{release}
+
+%description -n python-hfst
+Python 2 binding for HFST library.
+
+%description -n python-hfst -l pl.UTF-8
+Wiązanie Pythona 2 do biblioteki HFST.
+
 %package -n python3-hfst
 Summary:	Python 3 binding for HFST library
 Summary(pl.UTF-8):	Wiązanie Pythona 3 do biblioteki HFST
+License:	LGPL v3
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 
@@ -128,8 +145,9 @@ Wiązanie Pythona 3 do biblioteki HFST.
 # parallel build is broken with foma backend
 %{__make} -j1
 
-%if %{with python3}
 cd python
+%py_build
+%if %{with python3}
 %py3_build
 %endif
 
@@ -140,15 +158,16 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%py_postclean
 # obsoleted by pkgconfig
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libhfst.la
 
 # for transducer data
 install -d $RPM_BUILD_ROOT%{_datadir}/hfst
 
-%if %{with python3}
 cd python
+%py_install
+%py_postclean
+%if %{with python3}
 %py3_install
 %endif
 
@@ -165,7 +184,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hfst_foma
 %attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.42
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.43
 %dir %{_datadir}/hfst
 %{_mandir}/man1/hfst-*.1*
 %{_mandir}/man1/htwolcpre?.1*
@@ -187,6 +206,12 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libhfst.a
+
+%files -n python-hfst
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py_sitedir}/_libhfst.so
+%{py_sitedir}/libhfst.py[co]
+%{py_sitedir}/libhfst_swig-%{version}_beta-py*.egg-info
 
 %if %{with python3}
 %files -n python3-hfst
