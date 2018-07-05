@@ -7,7 +7,7 @@ Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
 Version:	3.11.0
-Release:	4
+Release:	5
 License:	LGPL v3 (library), GPL v3 (tools)
 Group:		Applications/Text
 #Source0Download: https://github.com/hfst/hfst/releases
