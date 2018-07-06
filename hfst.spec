@@ -6,14 +6,15 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.11.0
-Release:	5
+Version:	3.14.0
+Release:	1
 License:	LGPL v3 (library), GPL v3 (tools)
 Group:		Applications/Text
 #Source0Download: https://github.com/hfst/hfst/releases
 Source0:	https://github.com/hfst/hfst/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	6cbdddcb9ef28aa5681081a8a1dc6b54
+# Source0-md5:	08a93b43867037d2d0ef883022aabe1d
 Patch0:		%{name}-pc.patch
+Patch1:		build.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 # bundled library is used
 #BuildRequires:	SFST-devel
@@ -124,6 +125,7 @@ Wiązanie Pythona 3 do biblioteki HFST.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -139,6 +141,7 @@ Wiązanie Pythona 3 do biblioteki HFST.
 	--enable-proc \
 	--disable-silent-rules \
 	--enable-tagger \
+	--enable-train-tagger \
 	--enable-xfst \
 	%{?with_readline:--with-readline} \
 	--with-unicode-handler=glib
@@ -183,12 +186,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS NEWS README THANKS
 %attr(755,root,root) %{_bindir}/hfst-*
 %attr(755,root,root) %{_bindir}/hfst_foma
-%attr(755,root,root) %{_bindir}/htwolcpre*
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.46
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.51
 %dir %{_datadir}/hfst
 %{_mandir}/man1/hfst-*.1*
-%{_mandir}/man1/htwolcpre?.1*
 
 %files tagger
 %defattr(644,root,root,755)

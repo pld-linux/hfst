@@ -1,8 +1,8 @@
---- hfst-3.2.0/libhfst/hfst.pc.in.orig	2011-07-30 15:37:58.000000000 +0200
-+++ hfst-3.2.0/libhfst/hfst.pc.in	2011-08-02 19:24:49.316577950 +0200
-@@ -7,4 +7,4 @@
+--- hfst-3.14.0/libhfst/hfst.pc.in~	2017-03-08 12:58:26.000000000 +0100
++++ hfst-3.14.0/libhfst/hfst.pc.in	2018-07-06 09:12:26.281756872 +0200
+@@ -7,4 +7,4 @@ Name: hfst
  Description: Finite-state transducer library bridge for multiple FLOSS packages
  Version: @LIBHFST_VERSION@
- Libs: -L${libdir} -l@LIBHFST_NAME@ @LIBS@
+ Libs: -L${libdir} -l@LIBHFST_NAME@
 -Cflags: -I${includedir}/hfst/ @GLIB_CFLAGS@
 +Cflags: -I${includedir}/hfst @GLIB_CFLAGS@
