@@ -6,20 +6,20 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.14.0
+Version:	3.15.0
 Release:	1
 License:	LGPL v3 (library), GPL v3 (tools)
 Group:		Applications/Text
 #Source0Download: https://github.com/hfst/hfst/releases
 Source0:	https://github.com/hfst/hfst/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	08a93b43867037d2d0ef883022aabe1d
+# Source0-md5:	a2a458f23f7f07b176a64f5bd007fb63
 Patch0:		%{name}-pc.patch
 Patch1:		build.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 # bundled library is used
 #BuildRequires:	SFST-devel
 BuildRequires:	autoconf >= 2.62
-BuildRequires:	automake >= 1:1.11
+BuildRequires:	automake >= 1:1.12
 BuildRequires:	bison
 BuildRequires:	flex >= 2.5.35
 BuildRequires:	glib2-devel >= 1:2.16
@@ -187,7 +187,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hfst-*
 %attr(755,root,root) %{_bindir}/hfst_foma
 %attr(755,root,root) %{_libdir}/libhfst.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhfst.so.51
+%attr(755,root,root) %ghost %{_libdir}/libhfst.so.52
 %dir %{_datadir}/hfst
 %{_mandir}/man1/hfst-*.1*
 
