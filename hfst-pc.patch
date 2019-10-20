@@ -1,8 +1,8 @@
---- hfst-3.14.0/libhfst/hfst.pc.in~	2017-03-08 12:58:26.000000000 +0100
-+++ hfst-3.14.0/libhfst/hfst.pc.in	2018-07-06 09:12:26.281756872 +0200
-@@ -7,4 +7,4 @@ Name: hfst
+--- hfst-3.15.1/libhfst/hfst.pc.in.orig	2019-10-18 20:34:51.360631767 +0200
++++ hfst-3.15.1/libhfst/hfst.pc.in	2019-10-18 20:57:42.283204842 +0200
+@@ -7,4 +7,4 @@
  Description: Finite-state transducer library bridge for multiple FLOSS packages
  Version: @LIBHFST_VERSION@
  Libs: -L${libdir} -l@LIBHFST_NAME@
--Cflags: -I${includedir}/hfst/ @GLIB_CFLAGS@
-+Cflags: -I${includedir}/hfst @GLIB_CFLAGS@
+-Cflags: -I${includedir}/hfst/
++Cflags: -I${includedir}/hfst

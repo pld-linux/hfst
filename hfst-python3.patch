@@ -1,0 +1,54 @@
+--- hfst-3.15.1/tools/src/hfst-tagger/src/build_model_src/tagger_aux.py.orig	2019-09-03 14:18:06.000000000 +0200
++++ hfst-3.15.1/tools/src/hfst-tagger/src/build_model_src/tagger_aux.py	2019-10-20 08:31:18.809679816 +0200
+@@ -17,6 +17,8 @@
+ #   You should have received a copy of the GNU General Public License
+ #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
++from __future__ import print_function
++
+ import math
+ import collections
+ import string
+@@ -212,7 +214,7 @@
+         for count in object_counter.itervalues():
+             max_object_count = max(max_object_count, count)
+ 
+-        print "PENALTY_WEIGHT=" + str(get_penalty(1, max_object_count + 1))
++        print("PENALTY_WEIGHT=" + str(get_penalty(1, max_object_count + 1)))
+ 
+     for pair, penalty in penalty_map.iteritems():
+         if type(pair[0]) == type(u"") or type(pair[0]) == type(""):
+@@ -234,13 +236,13 @@
+                 s = string.join([p[0] + appended_suffix,
+                                  p[1],
+                                  str(penalty)],"\t")
+-                print s.encode("utf-8")
++                print(s.encode("utf-8"))
+             else:
+                 
+                 s = string.join([p[1] + appended_suffix,
+                                  p[0],
+                                  str(penalty)],"\t")
+-                print s.encode("utf-8")
++                print(s.encode("utf-8"))
+         else:
+             for entry in pair[0]:
+                 e = list(entry)
+@@ -256,9 +258,9 @@
+                     pass
+                 
+                 s = e[0] + "\t" + e[1] + "\t"
+-                print s.encode("utf-8"),
++                print(s.encode("utf-8"), end='')
+ 
+-            print penalty
++            print(penalty)
+ 
+ def print_penalties(object_counter, total_count, appended_suffix):
+ 
+@@ -274,4 +276,4 @@
+ 
+         s = o + appended_suffix + "T\t" + str(penalty)
+ 
+-        print s.encode("utf-8")
++        print(s.encode("utf-8"))

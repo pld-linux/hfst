@@ -6,15 +6,16 @@
 Summary:	Helsinki Finite-State Transducer (library and application suite)
 Summary(pl.UTF-8):	Helsinki Finite-State Transducer (biblioteka i zestaw aplikacji)
 Name:		hfst
-Version:	3.15.0
-Release:	2
+Version:	3.15.1
+Release:	1
 License:	LGPL v3 (library), GPL v3 (tools)
 Group:		Applications/Text
 #Source0Download: https://github.com/hfst/hfst/releases
-Source0:	https://github.com/hfst/hfst/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	a2a458f23f7f07b176a64f5bd007fb63
+Source0:	https://github.com/hfst/hfst/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	31b046a2c42c5f169dd1a973b82677f4
 Patch0:		%{name}-pc.patch
 Patch1:		build.patch
+Patch2:		%{name}-python3.patch
 URL:		http://www.ling.helsinki.fi/kieliteknologia/tutkimus/hfst/
 # bundled library is used
 #BuildRequires:	SFST-devel
@@ -126,6 +127,7 @@ Wiązanie Pythona 3 do biblioteki HFST.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -194,8 +196,10 @@ rm -rf $RPM_BUILD_ROOT
 %files tagger
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/hfst_tagger_compute_data_statistics.py
-%{py_sitescriptdir}/hfst_tagger_compute_data_statistics.py[co]
-%{py_sitescriptdir}/tagger_aux.py[co]
+%{py3_sitescriptdir}/hfst_tagger_compute_data_statistics.py
+%{py3_sitescriptdir}/tagger_aux.py
+%{py3_sitescriptdir}/__pycache__/hfst_tagger_compute_data_statistics.cpython-*.py[co]
+%{py3_sitescriptdir}/__pycache__/tagger_aux.cpython-*.py[co]
 %{_mandir}/man1/hfst_tagger_compute_data_statistics.py.1*
 
 %files devel
