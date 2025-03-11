@@ -125,9 +125,9 @@ Wiązanie Pythona 3 do biblioteki HFST.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 %{__libtoolize}
