@@ -218,7 +218,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/_libhfst.so
 %{py_sitedir}/hfst
 %{py_sitedir}/libhfst.py[co]
-%{py_sitedir}/libhfst_swig-%{version}_beta-py*.egg-info
+%{py_sitedir}/libhfst_swig-%{version}*.egg-info
 
 %if %{with python3}
 %files -n python3-hfst
@@ -227,5 +227,5 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/hfst
 %{py3_sitedir}/libhfst.py
 %{py3_sitedir}/__pycache__/libhfst.cpython-*.py[co]
-%{py3_sitedir}/libhfst_swig-%{version}_beta-py*.egg-info
+%{py3_sitedir}/libhfst_swig-%{version}*.egg-info
 %endif
